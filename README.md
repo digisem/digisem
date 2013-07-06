@@ -4,7 +4,7 @@ digisem
 A moodle plug-in that allows to request and automatically publish documents in courses. 
 
 Objective
-=======
+=====
 This project was initiated at the TU München 2011 and serves as interface between the library services and the central learning management system moodle. 
 The goals are:
 <ul>
