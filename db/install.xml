@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/newmodule/db" VERSION="20130709" COMMENT="XMLDB file for Moodle mod/digisem"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="digisem" COMMENT="digisem table retrofitted from MySQL">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="copy_of"/>
+        <FIELD NAME="copy_of" TYPE="int" LENGTH="11" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="user"/>
+        <FIELD NAME="user" TYPE="int" LENGTH="11" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="copy_of" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="11" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="user" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="course" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="name" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="timecreated" NEXT="status"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="16" NOTNULL="false" SEQUENCE="false" PREVIOUS="timemodified" NEXT="sign"/>
+        <FIELD NAME="sign" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" PREVIOUS="status" NEXT="isbn"/>
+        <FIELD NAME="isbn" TYPE="char" LENGTH="18" NOTNULL="false" SEQUENCE="false" PREVIOUS="sign" NEXT="issn"/>
+        <FIELD NAME="issn" TYPE="char" LENGTH="15" NOTNULL="false" SEQUENCE="false" PREVIOUS="isbn" NEXT="author"/>
+        <FIELD NAME="author" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="atitle"/>
+        <FIELD NAME="atitle" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="title"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="atitle" NEXT="volume"/>
+        <FIELD NAME="volume" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" PREVIOUS="title" NEXT="issue"/>
+        <FIELD NAME="issue" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="volume" NEXT="pub_date"/>
+        <FIELD NAME="pub_date" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="issue" NEXT="pages"/>
+        <FIELD NAME="pages" TYPE="char" LENGTH="32" NOTNULL="false" SEQUENCE="false" PREVIOUS="pub_date" NEXT="dig_comment"/>
+        <FIELD NAME="dig_comment" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="prim_key_id" TYPE="primary" FIELDS="id" NEXT="frg_key_course_id"/>
+        <KEY NAME="frg_key_course_id" TYPE="foreign" FIELDS="course" REFTABLE="mdl_course" REFFIELDS="id" PREVIOUS="prim_key_id" NEXT="frg_key_user_id"/>
+        <KEY NAME="frg_key_user_id" TYPE="foreign" FIELDS="user" REFTABLE="mdl_user" REFFIELDS="id" PREVIOUS="frg_key_course_id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="index_copyof" UNIQUE="false" FIELDS="copy_of"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

@@ -1,0 +1,2 @@
+# We do not allow any direct access from external sources
+Deny from all
